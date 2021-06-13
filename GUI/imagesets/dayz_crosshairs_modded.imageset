@@ -1,0 +1,26 @@
+ImageSetClass {
+ Name "dayz_crosshairs_modded"
+ RefSize 512 512
+ Textures {
+  ImageSetTextureClass {
+   mpix 3
+   path "{79B86CE4CEBBB822}OldEnvironment/GUI/imagesets/dayz_crosshairs_modded.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass old_crosshair {
+   Name "old_crosshair"
+   Pos 0 0
+   Size 128 128
+   Flags 0
+  }
+  ImageSetDefClass dynamic_crosshair {
+   Name "dynamic_crosshair"
+   Pos 128 0
+   Size 128 128
+   Flags 0
+  }
+ }
+ Groups {
+ }
+}

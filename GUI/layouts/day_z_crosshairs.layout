@@ -1,0 +1,83 @@
+FrameWidgetClass CrossHairsFrameWidget {
+ position 0 0
+ size 1 1
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ {
+  FrameWidgetClass CrossHairs {
+   visible 1
+   clipchildren 0
+   position 0 0
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   scriptclass "CrossHairSelector"
+   {
+    ImageWidgetClass dot {
+     visible 0
+     inheritalpha 1
+     color 1 1 1 0.7843
+     size 0.004 0.004
+     halign center_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     fixaspect fixwidth
+     image0 "set:dayz_crosshairs image:dot_4x4"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+    }
+    ImageWidgetClass dynamic_crosshair {
+     visible 0
+     inheritalpha 1
+     ignorepointer 1
+     keepsafezone 1
+     color 1 1 1 0.6275
+     size 0.12 0.12
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     fixaspect fixwidth
+     image0 "set:dayz_crosshairs_modded image:dynamic_crosshair"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+     filter 1
+    }
+    ImageWidgetClass old_crosshair {
+     visible 0
+     inheritalpha 1
+     color 1 1 1 0.6275
+     position 0 0
+     size 0.12 0.12
+     halign center_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 0
+     vexactsize 0
+     fixaspect fixwidth
+     image0 "set:dayz_crosshairs_modded image:old_crosshair"
+     mode blend
+     "src alpha" 1
+     "no wrap" 1
+     stretch 0
+     filter 1
+    }
+   }
+  }
+ }
+}
