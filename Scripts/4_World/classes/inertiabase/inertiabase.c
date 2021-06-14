@@ -1,9 +1,14 @@
 class PlayerInertiaConstants
 {
-	// this is max after multiplied by aim change
-	static const float MAX_INERTIA = 800;
+	static const float DEFAULT_STRENGTH = 20;
+	static const float DEFAULT_SMOOTH_TIME = 0.6;
+
+	static const float MIN_SMOOTH_TIME = 0.1;
+	static const float MAX_SMOOTH_TIME = 0.6;
 	// this is max inertia multiplier
 	static const float MAX_STRENGTH = 90;
+	// this is max aim change amount to multiply by strength
+	static const float MAX_TURN_CHANGE = 20;
 }
 
 class InertiaBase
@@ -15,8 +20,7 @@ class InertiaBase
 	float m_velocityPitch[1];
 	float m_velocityOffsetYaw[1];
 	float m_velocityOffsetPitch[1];
-	float m_dynamicsStrength = 20;
-	float m_dynamicsSmoothTime = 0.6;
+	float m_DynamicsModifier;
 
 	void InertiaBase(Weapon_Base weapon)
 	{
@@ -27,9 +31,11 @@ class InertiaBase
 		{
 			m_Weapon.GetPropertyModifierObject().UpdateModifiers();
 		}
+
+		m_DynamicsModifier = 1;
 	}
 
-	float GetDynamicsStrength()
+	float GetDynamicsModifier()
 	{
 		float dynamics_modifier = 1;
 
@@ -48,8 +54,21 @@ class InertiaBase
 		DbgPrintInertiaBase("attachments_modifier: "+attachments_modifier);
 		DbgPrintInertiaBase("barrel_length: "+barrel_length);
 		DbgPrintInertiaBase("weapon_weight: "+weapon_weight);
+		DbgPrintInertiaBase("dynamics_modifier: "+dynamics_modifier);
 
-		return Math.Clamp(m_dynamicsStrength * dynamics_modifier, m_dynamicsStrength, PlayerInertiaConstants.MAX_STRENGTH);
+		return dynamics_modifier;
+	}
+
+	float GetDynamicsStrength()
+	{
+		return Math.Clamp(PlayerInertiaConstants.DEFAULT_STRENGTH * m_DynamicsModifier, 0, PlayerInertiaConstants.MAX_STRENGTH);
+	}
+
+	float GetDynamicsSmoothTime()
+	{
+		float dynamics_smoothing = PlayerInertiaConstants.DEFAULT_SMOOTH_TIME;
+
+		return Math.Clamp(dynamics_smoothing * m_DynamicsModifier * 1.2, PlayerInertiaConstants.MIN_SMOOTH_TIME, PlayerInertiaConstants.MAX_SMOOTH_TIME);
 	}
 
 	/** 
@@ -69,22 +88,21 @@ class InertiaBase
 		DbgPrintInertiaBase("aimChangeX: "+aimChangeX);
 		DbgPrintInertiaBase("aimChangeY: "+aimChangeY);
 
+		m_DynamicsModifier = GetDynamicsModifier();
 		float dynamics_strength = GetDynamicsStrength();
+		float dynamics_smooth_time = GetDynamicsSmoothTime();
 
 		DbgPrintInertiaBase("dynamics_strength: "+dynamics_strength);
+		DbgPrintInertiaBase("dynamics_smooth_time: "+dynamics_smooth_time);
 
 		float inertia_value_x = -(dynamics_strength * aimChangeX);
 		float inertia_value_y = -(dynamics_strength * aimChangeY);
 
-		// limit inertia values
-		inertia_value_x = Math.Clamp(inertia_value_x, -PlayerInertiaConstants.MAX_INERTIA, PlayerInertiaConstants.MAX_INERTIA);
-		inertia_value_y = Math.Clamp(inertia_value_y, -PlayerInertiaConstants.MAX_INERTIA, PlayerInertiaConstants.MAX_INERTIA);
-
 		DbgPrintInertiaBase("inertia_value_x: "+inertia_value_x);
 		DbgPrintInertiaBase("inertia_value_y: "+inertia_value_y);
 
-		final_offset_x = Math.SmoothCD(pModel.m_fAimXHandsOffset + hands_offset_x, inertia_value_x + hands_offset_x, m_velocityYaw, m_dynamicsSmoothTime, 1000, pDt);
-		final_offset_y = Math.SmoothCD(pModel.m_fAimYHandsOffset + hands_offset_y, inertia_value_y + hands_offset_y, m_velocityPitch, m_dynamicsSmoothTime, 1000, pDt);
+		final_offset_x = Math.SmoothCD(pModel.m_fAimXHandsOffset + hands_offset_x, inertia_value_x + hands_offset_x, m_velocityYaw, dynamics_smooth_time, 1000, pDt);
+		final_offset_y = Math.SmoothCD(pModel.m_fAimYHandsOffset + hands_offset_y, inertia_value_y + hands_offset_y, m_velocityPitch, dynamics_smooth_time, 1000, pDt);
 
 		DbgPrintInertiaBase("-------------------");
 	}
