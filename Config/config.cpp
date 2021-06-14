@@ -249,7 +249,7 @@ class cfgVehicles
 	};
 	class AK_FoldingBttstck: Inventory_Base
 	{
-		inertiaMultiplier=0.7;
+		inertiaMultiplier=0.75;
 		recoilMultiplier=1.1;
 	};
 	class AK_PlasticBttstck: Inventory_Base
