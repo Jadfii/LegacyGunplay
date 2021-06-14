@@ -224,12 +224,12 @@ class cfgVehicles
 	class Inventory_Base;
 	class M4_MPBttstck: Inventory_Base
 	{
-		inertiaMultiplier=3;
+		inertiaMultiplier=2;
 		recoilMultiplier=0.8;
 	};
 	class M4_CQBBttstck: Inventory_Base
 	{
-		inertiaMultiplier=0.55;
+		inertiaMultiplier=0.35;
 		recoilMultiplier=1.2;
 	};
 	class AK_WoodBttstck: Inventory_Base
