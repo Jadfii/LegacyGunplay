@@ -6,7 +6,7 @@ class PlayerInertiaConstants
 	static const float MIN_SMOOTH_TIME = 0.1;
 	static const float MAX_SMOOTH_TIME = 0.6;
 	// this is max inertia multiplier
-	static const float MAX_STRENGTH = 110;
+	static const float MAX_STRENGTH = 90;
 	// this is max aim change amount to multiply by strength
 	static const float MAX_TURN_CHANGE = 25;
 }
@@ -45,10 +45,10 @@ class InertiaBase
 		float attachments_modifier = m_Weapon.GetPropertyModifierObject().m_InertiaModifier;
 		dynamics_modifier *= attachments_modifier;
 
-		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 0.6;
+		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 1.4;
 		dynamics_modifier *= barrel_length;
 		
-		float weapon_weight = m_Weapon.GetPropertyModifierObject().m_Weight;
+		float weapon_weight = m_Weapon.GetPropertyModifierObject().m_Weight * 0.4;
 		dynamics_modifier *= weapon_weight;
 
 		DbgPrintInertiaBase("attachments_modifier: "+attachments_modifier);

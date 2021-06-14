@@ -144,23 +144,23 @@ class CfgMagazines
 	};
 	class Mag_AKM_Drum75Rnd: Magazine_Base
 	{
-		inertiaMultiplier=3;
+		inertiaMultiplier=2;
 		recoilMultiplier=1.1;
 	};
 	class Mag_STANAGCoupled_30Rnd: Magazine_Base
 	{
-		inertiaMultiplier=1.6;
+		inertiaMultiplier=1.5;
 		recoilMultiplier=1.1;
 	};
 	class Mag_CMAG_40Rnd: Magazine_Base
 	{
-		inertiaMultiplier=1.3;
+		inertiaMultiplier=1.2;
 		recoilMultiplier=1.1;
 	};
 	class Mag_Saiga_Drum20Rnd: Magazine_Base
 	{
-		inertiaMultiplier=2;
-		recoilMultiplier=1.1;
+		inertiaMultiplier=1.4;
+		recoilMultiplier=1.05;
 	};
 };
 
@@ -229,7 +229,7 @@ class cfgVehicles
 	};
 	class M4_MPBttstck: Inventory_Base
 	{
-		inertiaMultiplier=2.5;
+		inertiaMultiplier=1.5;
 		recoilMultiplier=0.8;
 	};
 	class M4_CQBBttstck: Inventory_Base
@@ -249,7 +249,7 @@ class cfgVehicles
 	};
 	class AK_FoldingBttstck: Inventory_Base
 	{
-		inertiaMultiplier=0.8;
+		inertiaMultiplier=0.7;
 		recoilMultiplier=1.1;
 	};
 	class AK_PlasticBttstck: Inventory_Base
