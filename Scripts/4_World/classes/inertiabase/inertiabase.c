@@ -6,9 +6,9 @@ class PlayerInertiaConstants
 	static const float MIN_SMOOTH_TIME = 0.1;
 	static const float MAX_SMOOTH_TIME = 0.6;
 	// this is max inertia multiplier
-	static const float MAX_STRENGTH = 90;
+	static const float MAX_STRENGTH = 110;
 	// this is max aim change amount to multiply by strength
-	static const float MAX_TURN_CHANGE = 20;
+	static const float MAX_TURN_CHANGE = 25;
 }
 
 class InertiaBase
@@ -68,7 +68,7 @@ class InertiaBase
 	{
 		float dynamics_smoothing = PlayerInertiaConstants.DEFAULT_SMOOTH_TIME;
 
-		return Math.Clamp(dynamics_smoothing * m_DynamicsModifier * 1.2, PlayerInertiaConstants.MIN_SMOOTH_TIME, PlayerInertiaConstants.MAX_SMOOTH_TIME);
+		return Math.Clamp(dynamics_smoothing * m_DynamicsModifier * 1.5, PlayerInertiaConstants.MIN_SMOOTH_TIME, PlayerInertiaConstants.MAX_SMOOTH_TIME);
 	}
 
 	/** 

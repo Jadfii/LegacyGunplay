@@ -222,6 +222,11 @@ class cfgVehicles
 	/* SUPPORTS (BUTTSTOCKS, HANDGUARDS) */
 	//bttstcks
 	class Inventory_Base;
+	class M4_OeBttstck: Inventory_Base
+	{
+		inertiaMultiplier=0.8;
+		recoilMultiplier=1;
+	};
 	class M4_MPBttstck: Inventory_Base
 	{
 		inertiaMultiplier=2.5;
@@ -229,7 +234,7 @@ class cfgVehicles
 	};
 	class M4_CQBBttstck: Inventory_Base
 	{
-		inertiaMultiplier=0.3;
+		inertiaMultiplier=0.6;
 		recoilMultiplier=1.2;
 	};
 	class AK_WoodBttstck: Inventory_Base
