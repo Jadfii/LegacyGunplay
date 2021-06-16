@@ -89,7 +89,7 @@ class InertiaBase
 	{
 		float modifier = 1;
 
-		if (m_Weapon && m_Weapon.HasBipodDeployed())
+		if (m_Weapon && m_Weapon.HasBipodDeployed() && m_Player && !m_Player.IsUsingBipod())
 		{
 			modifier = PlayerInertiaConstants.BIPOD_MODIFIER;
 		}
