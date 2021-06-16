@@ -135,32 +135,26 @@ class CfgMagazines
 	class Mag_MP5_15Rnd: Magazine_Base
 	{
 		inertiaMultiplier=0.9;
-		recoilMultiplier=0.9;
 	};
 	class Mag_MP5_30Rnd: Magazine_Base
 	{
 		inertiaMultiplier=1.1;
-		recoilMultiplier=1.1;
 	};
 	class Mag_AKM_Drum75Rnd: Magazine_Base
 	{
 		inertiaMultiplier=2;
-		recoilMultiplier=1.1;
 	};
 	class Mag_STANAGCoupled_30Rnd: Magazine_Base
 	{
 		inertiaMultiplier=1.5;
-		recoilMultiplier=1.1;
 	};
 	class Mag_CMAG_40Rnd: Magazine_Base
 	{
 		inertiaMultiplier=1.2;
-		recoilMultiplier=1.1;
 	};
 	class Mag_Saiga_Drum20Rnd: Magazine_Base
 	{
 		inertiaMultiplier=1.4;
-		recoilMultiplier=1.05;
 	};
 };
 
