@@ -39,7 +39,7 @@ modded class NotifierBase
 
 	override void OnTick(float current_time)
 	{
-		if (m_MinPauseBetweenMessages != -1)
+		/*if (m_MinPauseBetweenMessages != -1)
 		{
 			if (m_SecsSinceLastMessage >= m_SecsToMessage)
 			{
@@ -51,7 +51,7 @@ modded class NotifierBase
 			{
 				m_SecsSinceLastMessage += current_time - m_TickIntervalLastTick;
 			}
-		}
+		}*/
 
 		super.OnTick(current_time);
 	}

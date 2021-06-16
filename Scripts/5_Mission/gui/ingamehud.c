@@ -1,4 +1,4 @@
-modded class IngameHud extends Hud
+/*modded class IngameHud extends Hud
 {
 	override void Init(Widget hud_panel_widget)
 	{
@@ -29,4 +29,4 @@ modded class IngameHud extends Hud
 
 		if (w) super.DisplayTendencyTemp(key, tendency, status);
 	}
-}
+}*/
