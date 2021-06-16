@@ -168,27 +168,27 @@ class cfgVehicles
 {
 	/* SCOPES */
 	class ItemOptics;
-	class ACOGOptic: ItemOptics
+	/*class ACOGOptic: ItemOptics
 	{
 		class OpticsInfo
 		{
-			opticsZoomMin=0.12;
-			opticsZoomMax=0.12;
-			opticsZoomInit=0.12;
+			opticsZoomMin=0.105;
+			opticsZoomMax=0.105;
+			opticsZoomInit=0.105;
 		};
 	};
 	class PUScopeOptic: ItemOptics
 	{
 		class OpticsInfo
 		{
-			opticsZoomMin=0.18;
-			opticsZoomMax=0.18;
-			opticsZoomInit=0.18;
+			opticsZoomMin=0.15;
+			opticsZoomMax=0.15;
+			opticsZoomInit=0.15;
 		};
-	};
+	};*/
 	class KazuarOptic: ItemOptics
 	{
-		inertiaMultiplier=1.5;
+		inertiaMultiplier=1.3;
 		recoilMultiplier=1.1;
 	};
 
