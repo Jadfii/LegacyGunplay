@@ -163,7 +163,7 @@ modded class DayZPlayerImplement extends DayZPlayer
 
 	void DbgPrintImplement(string val)
 	{
-		//return;
+		return;
 		Print("DayZPlayerImplement | " + val);
 	}
 }
