@@ -47,8 +47,8 @@ modded class PlayerBase extends ManBase
 		}
 	}
 
-	override void HideClothing(ItemOptics optic, bool state)
+	/*override void HideClothing(ItemOptics optic, bool state)
 	{
 		return;
-	}
+	}*/
 }
