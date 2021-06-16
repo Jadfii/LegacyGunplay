@@ -99,6 +99,9 @@ modded class PropertyModifiers
 			int slotId = m_OwnerItem.GetInventory().GetAttachmentSlotId(i);
 			string slot_name = InventorySlots.GetSlotName(slotId);
 
+			// here we are checking our list of slots to see:
+			// 1) does the slot exist on the weapon?
+			// 2) does the weapon have an item on that slot?
 			if (m_ButtstockSlots && m_ButtstockSlots.Count() > 0 && m_ButtstockSlots.Find(slot_name) > -1)
 			{
 				has_buttstock_slot = true;
