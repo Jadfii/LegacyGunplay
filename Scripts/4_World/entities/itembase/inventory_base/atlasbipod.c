@@ -4,6 +4,16 @@ modded class AtlasBipod extends Inventory_Base
 	protected string m_DefaultAnimPhase = "bipod";
 	protected bool m_Deployed; // is bipod deployed
 
+	void AtlasBipod()
+	{
+		RegisterNetSyncVariableBool("m_Deployed");
+	}
+
+	override void OnVariablesSynchronized()
+	{
+		DoBipodAnimation(m_Deployed);
+	}
+
 	override bool CanPutAsAttachment(EntityAI parent)
 	{
 		// Since super only accounts for rail handguard attachments
@@ -23,12 +33,17 @@ modded class AtlasBipod extends Inventory_Base
 	void SetDeployed(bool deployed)
 	{
 		m_Deployed = deployed;
+		SetSynchDirty();
 	}
 
 	void DeployBipod(bool deploy)
 	{
 		SetDeployed(deploy);
+		DoBipodAnimation(deploy);
+	}
 
+	void DoBipodAnimation(bool deploy)
+	{
 		if (deploy)
 		{
 			SetAnimationPhase(m_DefaultAnimPhase, 1);
