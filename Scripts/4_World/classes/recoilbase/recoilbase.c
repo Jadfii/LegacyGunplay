@@ -21,7 +21,7 @@ modded class RecoilBase
 	override void PostInit(Weapon_Base weapon)
 	{
 		// Bump the mouse offset distance!
-		m_MouseOffsetDistance *= 3.75;
+		m_MouseOffsetDistance *= 2.25;
 
 		super.PostInit(weapon);
 
@@ -32,7 +32,7 @@ modded class RecoilBase
 		m_RecoilModifier = Vector(1, 1, 1);
 
 		// Decrease the X mouse offset
-		m_MouseOffsetTarget[0] = m_MouseOffsetTarget[0] * 0.2;
+		m_MouseOffsetTarget[0] = m_MouseOffsetTarget[0] * 0.3;
 
 		// Set a constant reload time
 		m_ReloadTime = 0.25;
@@ -56,6 +56,22 @@ modded class RecoilBase
 			vector handsPoint = m_HandsCurvePoints[i];
 			m_HandsCurvePoints[i] = Vector(handsPoint[0], (handsPoint[1] * y_modifier), 0);
 		}
+
+		/*m_HandsCurvePoints.Clear();
+
+		vector point_1;
+		vector point_2;
+		vector point_3;
+		vector point_4;
+		point_1[0] = 0.55; point_1[1] = 1.33 * 4; point_1[2] = 0;
+		point_2[0] = 0; point_2[1] = 1.75 * 2; point_2[2] = 0;
+		point_3[0] = -1.25; point_3[1] = 1.33; point_3[2] = 0;
+		point_4[0] = -0.1; point_4[1] = 0.75; point_4[2] = 0;
+		m_HandsCurvePoints.Insert(point_1);//forms a 2 dimensional spline(z is ignored)
+		m_HandsCurvePoints.Insert(point_2);
+		m_HandsCurvePoints.Insert(point_3);
+		m_HandsCurvePoints.Insert(point_4);
+		m_HandsCurvePoints.Insert("0 0 0");*/
 
 		m_AttachmentsModifier = GetAttachmentsModifier(GetWeapon());
 		m_OpticsCamModifier = GetOpticsCamModifier(GetWeapon());
@@ -89,6 +105,9 @@ modded class RecoilBase
 	override void ApplyHandsOffset(float pDt, out float pRecResultX, out float pRecResultY)
 	{
 		super.ApplyHandsOffset(pDt, pRecResultX, pRecResultY);
+
+		/*pRecResultX *= (1 - (1 / m_MouseOffsetDistance)) * 2;
+		pRecResultY *= (1 - (1 / m_MouseOffsetDistance)) * 2;*/
 
 		m_CurrentHandsOffsetX = pRecResultX;
 		m_CurrentHandsOffsetY = pRecResultY;
