@@ -3,7 +3,7 @@ class PlayerInertiaConstants
 	static const float DEFAULT_STRENGTH = 20;
 	static const float DEFAULT_SMOOTH_TIME = 0.6;
 
-	static const float MIN_SMOOTH_TIME = 0.1;
+	static const float MIN_SMOOTH_TIME = 0.3;
 	static const float MAX_SMOOTH_TIME = 0.6;
 	// this is max inertia multiplier
 	static const float MAX_STRENGTH = 90;
