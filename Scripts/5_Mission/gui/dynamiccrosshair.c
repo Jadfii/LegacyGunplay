@@ -6,7 +6,7 @@ class DynamicCrossHair extends CrossHair
 	protected PlayerBase m_Player = NULL;
 	protected Weapon_Base m_Weapon = NULL;
 
-	protected float m_RaycastDistance = 100;
+	protected float m_RaycastDistance = 50;
 
 	Shape m_Shape_usti;
 	Shape m_Shape_konec;
