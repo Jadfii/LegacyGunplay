@@ -13,6 +13,8 @@ class PlayerInertiaConstants
 	static const float ERECT_MODIFIER = 1;
 	static const float CROUCH_MODIFIER = 1.15;
 	static const float PRONE_MODIFIER = 1.5;
+
+	static const float BIPOD_MODIFIER = 1.5;
 }
 
 class InertiaBase
@@ -58,6 +60,10 @@ class InertiaBase
 		float stance_modifier = GetStanceModifier();
 		dynamics_modifier *= stance_modifier;
 
+		float bipod_modifier = GetBipodModifier();
+		dynamics_modifier *= bipod_modifier;
+
+		DbgPrintInertiaBase("bipod_modifier: "+bipod_modifier);
 		DbgPrintInertiaBase("stance_modifier: "+stance_modifier);
 		DbgPrintInertiaBase("attachments_modifier: "+attachments_modifier);
 		DbgPrintInertiaBase("barrel_length: "+barrel_length);
@@ -77,6 +83,18 @@ class InertiaBase
 		float dynamics_smoothing = PlayerInertiaConstants.DEFAULT_SMOOTH_TIME;
 
 		return Math.Clamp(dynamics_smoothing * m_DynamicsModifier * 1.5, PlayerInertiaConstants.MIN_SMOOTH_TIME, PlayerInertiaConstants.MAX_SMOOTH_TIME);
+	}
+
+	float GetBipodModifier()
+	{
+		float modifier = 1;
+
+		if (m_Weapon && m_Weapon.HasBipodDeployed())
+		{
+			modifier = PlayerInertiaConstants.BIPOD_MODIFIER;
+		}
+
+		return modifier;
 	}
 
 	/** 
