@@ -33,7 +33,10 @@ modded class AtlasBipod extends Inventory_Base
 	void SetDeployed(bool deployed)
 	{
 		m_Deployed = deployed;
-		SetSynchDirty();
+		if (GetGame().IsServer() || !GetGame().IsMultiplayer())
+		{
+			SetSynchDirty();
+		}
 	}
 
 	void DeployBipod(bool deploy)
