@@ -5,6 +5,10 @@ class PlayerRecoilConstants
 
 	// Set a range (+- this value) for the random recoil amount
 	static const float RANDOM_RECOIL_AMOUNT = 0.15;
+
+	static const float ERECT_MODIFIER = 1;
+	static const float CROUCH_MODIFIER = 0.8;
+	static const float PRONE_MODIFIER = 0.65;
 }
 
 modded class RecoilBase
@@ -15,6 +19,7 @@ modded class RecoilBase
 	protected float m_RandomRecoilModifier;
 	protected float m_AttachmentsModifier;
 	protected float m_OpticsCamModifier;
+	protected float m_StanceModifier;
 
 	protected float m_MouseOffsetDelay = 0.1;
 
@@ -75,7 +80,9 @@ modded class RecoilBase
 
 		m_AttachmentsModifier = GetAttachmentsModifier(GetWeapon());
 		m_OpticsCamModifier = GetOpticsCamModifier(GetWeapon());
+		m_StanceModifier = GetStanceModifier();
 
+		DbgPrintRecoilBase("PostInit | m_StanceModifier: "+m_StanceModifier);
 		DbgPrintRecoilBase("PostInit | m_AttachmentsModifier: "+m_AttachmentsModifier);
 		DbgPrintRecoilBase("PostInit | m_OpticsCamModifier: "+m_OpticsCamModifier);
 		DbgPrintRecoilBase("PostInit | m_ReloadTime: "+m_ReloadTime);
@@ -98,6 +105,7 @@ modded class RecoilBase
 		pModel.m_fCamPosOffsetZ *= m_AttachmentsModifier;
 		pModel.m_fCamPosOffsetZ *= m_OpticsCamModifier;
 		pModel.m_fCamPosOffsetZ *= m_RandomRecoilModifier;
+		pModel.m_fCamPosOffsetZ *= m_StanceModifier;
 
 		DbgPrintRecoilBase("ApplyCamOffset | pModel.m_fCamPosOffsetZ: "+pModel.m_fCamPosOffsetZ);
     }
@@ -120,11 +128,11 @@ modded class RecoilBase
 	{
 		super.Update(pModel, axis_mouse_x, axis_mouse_y, axis_hands_x, axis_hands_y, pDt);
 
-		axis_mouse_x *= m_AttachmentsModifier * m_RandomRecoilModifier;
-		axis_mouse_y *= m_AttachmentsModifier * m_RandomRecoilModifier;
+		axis_mouse_x *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
+		axis_mouse_y *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
 		
-		axis_hands_x *= m_AttachmentsModifier * m_RandomRecoilModifier;
-		axis_hands_y *= m_AttachmentsModifier * m_RandomRecoilModifier;
+		axis_hands_x *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
+		axis_hands_y *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
 	}
 
 	float GetOpticsCamModifier(Weapon_Base weapon)
@@ -165,6 +173,32 @@ modded class RecoilBase
 		modifier *= GetBipodModifier();
 
 		return modifier;
+	}
+
+	/** 
+	 * Get a modifier from player stance.
+	 * Lower stance means less recoil
+	 * 
+	*/
+	float GetStanceModifier()
+	{
+		float stance_modifier = 1;
+		if (!m_Player) return stance_modifier;
+
+		if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT))
+		{
+			stance_modifier *= PlayerRecoilConstants.ERECT_MODIFIER;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH))
+		{
+			stance_modifier *= PlayerRecoilConstants.CROUCH_MODIFIER;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE))
+		{
+			stance_modifier *= PlayerRecoilConstants.PRONE_MODIFIER;
+		}
+
+		return stance_modifier;
 	}
 
 	void DbgPrintRecoilBase(string val)

@@ -9,6 +9,10 @@ class PlayerInertiaConstants
 	static const float MAX_STRENGTH = 90;
 	// this is max aim change amount to multiply by strength
 	static const float MAX_TURN_CHANGE = 25;
+
+	static const float ERECT_MODIFIER = 1;
+	static const float CROUCH_MODIFIER = 1.15;
+	static const float PRONE_MODIFIER = 1.5;
 }
 
 class InertiaBase
@@ -51,6 +55,10 @@ class InertiaBase
 		float weapon_weight = m_Weapon.GetPropertyModifierObject().m_Weight * 0.4;
 		dynamics_modifier *= weapon_weight;
 
+		float stance_modifier = GetStanceModifier();
+		dynamics_modifier *= stance_modifier;
+
+		DbgPrintInertiaBase("stance_modifier: "+stance_modifier);
 		DbgPrintInertiaBase("attachments_modifier: "+attachments_modifier);
 		DbgPrintInertiaBase("barrel_length: "+barrel_length);
 		DbgPrintInertiaBase("weapon_weight: "+weapon_weight);
@@ -69,6 +77,32 @@ class InertiaBase
 		float dynamics_smoothing = PlayerInertiaConstants.DEFAULT_SMOOTH_TIME;
 
 		return Math.Clamp(dynamics_smoothing * m_DynamicsModifier * 1.5, PlayerInertiaConstants.MIN_SMOOTH_TIME, PlayerInertiaConstants.MAX_SMOOTH_TIME);
+	}
+
+	/** 
+	 * Get a modifier from player stance.
+	 * Lower stance means more inertia
+	 * 
+	*/
+	float GetStanceModifier()
+	{
+		float stance_modifier = 1;
+		if (!m_Player) return stance_modifier;
+
+		if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDERECT))
+		{
+			stance_modifier *= PlayerInertiaConstants.ERECT_MODIFIER;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH))
+		{
+			stance_modifier *= PlayerInertiaConstants.CROUCH_MODIFIER;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE))
+		{
+			stance_modifier *= PlayerInertiaConstants.PRONE_MODIFIER;
+		}
+
+		return stance_modifier;
 	}
 
 	/** 
