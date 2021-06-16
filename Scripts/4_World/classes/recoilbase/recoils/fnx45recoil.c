@@ -20,12 +20,6 @@ modded class Fnx45Recoil extends RecoilBase
 		m_HandsCurvePoints.Insert(point_4);
 		m_HandsCurvePoints.Insert("0 0 0");
 
-		/*for (int i = 0; i < m_HandsCurvePoints.Count(); i++)
-		{
-			vector handsPoint = m_HandsCurvePoints[i];
-			m_HandsCurvePoints[i] = Vector(handsPoint[0], (handsPoint[1] * 0.6), 0);
-		}*/
-
 		m_CamOffsetDistance *= 0.3;
 	}
 }
