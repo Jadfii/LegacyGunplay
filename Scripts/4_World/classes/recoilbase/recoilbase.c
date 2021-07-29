@@ -1,7 +1,7 @@
 class PlayerRecoilConstants
 {
 	// This is applied alongside the prone modifier
-	static const float RECOIL_MULTIPLIER_BIPOD = 0.4;
+	static const float RECOIL_MULTIPLIER_BIPOD = 0.5;
 
 	// Set a range (+- this value) for the random recoil amount
 	static const float RANDOM_RECOIL_AMOUNT = 0.15;
