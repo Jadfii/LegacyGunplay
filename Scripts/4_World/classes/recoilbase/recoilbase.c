@@ -17,6 +17,8 @@ class PlayerRecoilConstants
 	static const float HANDS_Y_OFFSET_MODIFIER = 0.8;
 
 	static const float MOUSE_X_OFFSET_MODIFIER = 0.7;
+
+	static const float CAM_Z_OFFSET_MODIFIER = 1.75;
 }
 
 modded class RecoilBase
@@ -99,10 +101,8 @@ modded class RecoilBase
 	override void ApplyCamOffset(SDayZPlayerAimingModel pModel)
     {
 		pModel.m_fCamPosOffsetZ += (m_CurrentHandsOffsetY * m_CamOffsetDistance) / 2;
-		pModel.m_fCamPosOffsetZ *= m_AttachmentsModifier;
-		pModel.m_fCamPosOffsetZ *= m_OpticsCamModifier;
-		pModel.m_fCamPosOffsetZ *= m_RandomRecoilModifier;
-		pModel.m_fCamPosOffsetZ *= m_StanceModifier;
+		pModel.m_fCamPosOffsetZ *= m_AttachmentsModifier * m_OpticsCamModifier * m_RandomRecoilModifier * m_StanceModifier;
+		pModel.m_fCamPosOffsetZ *= PlayerRecoilConstants.CAM_Z_OFFSET_MODIFIER;
 
 		DbgPrintRecoilBase("ApplyCamOffset | pModel.m_fCamPosOffsetZ: "+pModel.m_fCamPosOffsetZ);
     }
