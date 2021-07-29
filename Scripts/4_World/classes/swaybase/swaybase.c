@@ -1,9 +1,20 @@
+class PlayerSwayStates
+{
+	static const int DEFAULT = 0;
+	static const int CROUCHED = 1;
+	static const int PRONE = 2;
+	static const int STABLE = 3; // holding breath
+	static const int EXHAUSTED = 4; // tired of holding breath :)))
+}
+
 modded class PlayerSwayConstants
 {
 	// This modifier is applied to the base sway before stamina effects
 	static const float BASE_SWAY_MODIFIER = 1;
 
 	static const float SWAY_MULTIPLIER_DEFAULT = 1;
+	static const float SWAY_MULTIPLIER_CROUCHED = 0.75;
+	static const float SWAY_MULTIPLIER_PRONE = 0.5;
 	static const float SWAY_MULTIPLIER_STABLE = 0.3; // holding breath
 	static const float SWAY_MULTIPLIER_EXHAUSTED = 2.0;
 	static const float SWAY_MULTIPLIER_BIPOD = 0.1;
@@ -101,7 +112,7 @@ class SwayBase
 
 	bool IsExhausted()
 	{
-		return m_SwayState == eSwayStates.HOLDBREATH_EXHAUSTED || (m_IsTransitioningState && m_LastSwayState == eSwayStates.HOLDBREATH_EXHAUSTED);
+		return m_SwayState == PlayerSwayStates.EXHAUSTED || (m_IsTransitioningState && m_LastSwayState == PlayerSwayStates.EXHAUSTED);
 	}
 
 	void UpdateSwayState(float pDt)
@@ -110,19 +121,27 @@ class SwayBase
 
 		if (!m_Player)
 		{
-			state = eSwayStates.DEFAULT;
+			state = PlayerSwayStates.DEFAULT;
 		}
 		else if (m_Player.IsHoldingBreath())
 		{
-			state = eSwayStates.HOLDBREATH_STABLE;
+			state = PlayerSwayStates.STABLE;
 		}
 		else if (!m_Player.CanStartConsumingStamina(EStaminaConsumers.HOLD_BREATH))
 		{
-			state = eSwayStates.HOLDBREATH_EXHAUSTED;
+			state = PlayerSwayStates.EXHAUSTED;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDCROUCH))
+		{
+			state = PlayerSwayStates.CROUCHED;
+		}
+		else if (m_Player.IsPlayerInStance(DayZPlayerConstants.STANCEMASK_RAISEDPRONE))
+		{
+			state = PlayerSwayStates.PRONE;
 		}
 		else
 		{
-			state = eSwayStates.DEFAULT;
+			state = PlayerSwayStates.DEFAULT;
 		}
 
 		// State has changed, cause state change
@@ -149,7 +168,7 @@ class SwayBase
 		m_IsTransitioningState = false;
 		m_LastSwayState = m_SwayState;
 
-		if (m_SwayState == eSwayStates.HOLDBREATH_EXHAUSTED)
+		if (m_SwayState == PlayerSwayStates.EXHAUSTED)
 		{
 			m_Player.OnHoldBreathExhausted();
 		}
@@ -185,7 +204,7 @@ class SwayBase
 		}
 
 		float time = Math.InverseLerp(0, last_sway_state_transition_time, m_TransitionTime);
-		if (m_LastSwayState != eSwayStates.HOLDBREATH_EXHAUSTED) time = Easing.EaseInOutCubic(time);
+		if (m_LastSwayState != PlayerSwayStates.EXHAUSTED) time = Easing.EaseInOutCubic(time);
 
 		// Lerp modifier between modifier of last state and modifier of new state
 		m_SwayStateModifier = Math.Lerp(last_sway_state_modifier, current_sway_state_modifier, Math.Clamp(time, 0, 1));
@@ -199,7 +218,7 @@ class SwayBase
 	{
 		switch (state)
 		{
-			case eSwayStates.HOLDBREATH_EXHAUSTED:
+			case PlayerSwayStates.EXHAUSTED:
 				return PlayerSwayConstants.SWAY_STATE_TRANSITION_TIME_EXHAUSTED;
 			default:
 				return PlayerSwayConstants.SWAY_STATE_TRANSITION_TIME_DEFAULT;
@@ -219,11 +238,17 @@ class SwayBase
 		
 		switch (state)
 		{
-			case eSwayStates.HOLDBREATH_STABLE:
+			case PlayerSwayStates.STABLE:
 				modifier = PlayerSwayConstants.SWAY_MULTIPLIER_STABLE;
 				break;
-			case eSwayStates.HOLDBREATH_EXHAUSTED:
+			case PlayerSwayStates.EXHAUSTED:
 				modifier = PlayerSwayConstants.SWAY_MULTIPLIER_EXHAUSTED;
+				break;
+			case PlayerSwayStates.CROUCHED:
+				modifier = PlayerSwayConstants.SWAY_MULTIPLIER_CROUCHED;
+				break;
+			case PlayerSwayStates.PRONE:
+				modifier = PlayerSwayConstants.SWAY_MULTIPLIER_PRONE;
 				break;
 			default:
 				modifier = PlayerSwayConstants.SWAY_MULTIPLIER_DEFAULT;
