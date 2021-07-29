@@ -69,7 +69,7 @@ modded class Weapon_Base extends Weapon
 			return new Winchester70Recoil(this);
 		
 		if (IsInherited(BoltActionRifle_Base) || IsInherited(DoubleBarrel_Base))
-			return new CZ527Recoil(this);
+			return new B95Recoil(this);
 
 		string cartridge_type = GetChamberAmmoTypeName(GetCurrentMuzzle());
 
