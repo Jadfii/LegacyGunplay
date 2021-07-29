@@ -38,7 +38,7 @@ modded class RecoilBase
 	override void PostInit(Weapon_Base weapon)
 	{
 		// Bump the mouse offset distance!
-		m_MouseOffsetDistance *= 2.75;
+		m_MouseOffsetDistance *= 2.4;
 
 		super.PostInit(weapon);
 
