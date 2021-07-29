@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{79B86CE4CEBBB822}LegacyGunplay/GUI/imagesets/dayz_crosshairs_modded.edds"
+ Author "desktop-ejn2lse"
+ ChangeDate -2026509628
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "dayz_crosshairs_modded.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
