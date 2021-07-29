@@ -44,7 +44,7 @@ modded class DayZPlayerImplementAiming
 	float GenerateRandomOffsetDirection()
 	{
 		if (!m_PlayerPb) return -1;
-		return Math.Round(m_PlayerPb.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, 0, 1)) * 2 - 1;
+		return Math.Round(m_PlayerPb.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 0, 1)) * 2 - 1;
 	}
 
 	override void OnRaiseBegin(DayZPlayerImplement player)
