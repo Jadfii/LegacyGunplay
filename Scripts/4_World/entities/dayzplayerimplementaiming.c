@@ -3,16 +3,18 @@ modded class DayZPlayerImplementAiming
 	float m_CurrentHandsOffsetX;
 	float m_CurrentHandsOffsetY;
 
-	float m_movementTimeAcc = 0;
-	float m_movementAmplitudeX = 0.9;
-	float m_movementAmplitudeY = 0.4;
-	float m_movementAmplitudeZ = 0.018;
-	float m_movementFrequencyWalk = 1.25;
-	float m_movementFrequencySlow = 0.55;
-	float m_movementFrequencyCrouched = 0.85;
+	protected float m_movementTimeAcc = 0;
+	protected float m_movementAmplitudeX = 0.9;
+	protected float m_movementAmplitudeY = 0.4;
+	protected float m_movementAmplitudeZ = 0.018;
+	protected float m_movementFrequencyWalk = 1.25;
+	protected float m_movementFrequencySlow = 0.55;
+	protected float m_movementFrequencyCrouched = 0.85;
 
 	float m_CurrentMovementNoise;
 	float m_MovementOffsetTimer;
+
+	protected float m_RecoilOffsetDirection = -1;
 
 	protected ref SwayBase m_CurrentSway;
 	protected ref InertiaBase m_CurrentInertia;
@@ -32,6 +34,17 @@ modded class DayZPlayerImplementAiming
 		if (m_PlayerPb && m_PlayerPb.GetItemInHands()) Class.CastTo(weapon_in_hands, m_PlayerPb.GetItemInHands());
 		
 		return weapon_in_hands;
+	}
+
+	float GetRecoilOffsetDirection()
+	{
+		return m_RecoilOffsetDirection;
+	}
+
+	float GenerateRandomOffsetDirection()
+	{
+		if (!m_PlayerPb) return -1;
+		return Math.Round(m_PlayerPb.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, 0, 1)) * 2 - 1;
 	}
 
 	override void OnRaiseBegin(DayZPlayerImplement player)
@@ -143,6 +156,10 @@ modded class DayZPlayerImplementAiming
 		if (m_CurrentRecoil)
 		{
 			m_CurrentRecoil.Update(pModel, recoil_offset_mouse_x, recoil_offset_mouse_y, recoil_offset_hands_x, recoil_offset_hands_y, pDt);
+		}
+		else
+		{
+			m_RecoilOffsetDirection = GenerateRandomOffsetDirection();
 		}
 
 		//DbgPrintAimingImplement("pModel.m_fCamPosOffsetZ: " + pModel.m_fCamPosOffsetZ);

@@ -13,8 +13,10 @@ class PlayerRecoilConstants
 	// Time (~ms) before mouse offset is applied
 	static const float MOUSE_OFFSET_DELAY = 0.1;
 
-	static const float HANDS_X_OFFSET_MODIFIER = 0.075;
+	static const float HANDS_X_OFFSET_MODIFIER = 0.1;
 	static const float HANDS_Y_OFFSET_MODIFIER = 0.8;
+
+	static const float MOUSE_X_OFFSET_MODIFIER = 0.8;
 }
 
 modded class RecoilBase
@@ -43,7 +45,7 @@ modded class RecoilBase
 		m_RecoilModifier = Vector(1, 1, 1);
 
 		// Decrease the X mouse offset
-		m_MouseOffsetTarget[0] = m_MouseOffsetTarget[0] * 0.6;
+		m_MouseOffsetTarget[0] = m_MouseOffsetTarget[0] * PlayerRecoilConstants.MOUSE_X_OFFSET_MODIFIER;
 
 		// Set a constant reload time
 		m_ReloadTime = 0.25;
@@ -72,12 +74,13 @@ modded class RecoilBase
 		m_OpticsCamModifier = GetOpticsCamModifier(GetWeapon());
 		m_StanceModifier = GetStanceModifier();
 
-		m_OffsetDirection = GetRandomPositiveNegative();
+		m_OffsetDirection = GetOffsetDirection();
 
 		DbgPrintRecoilBase("PostInit | m_StanceModifier: "+m_StanceModifier);
 		DbgPrintRecoilBase("PostInit | m_AttachmentsModifier: "+m_AttachmentsModifier);
 		DbgPrintRecoilBase("PostInit | m_OpticsCamModifier: "+m_OpticsCamModifier);
 		DbgPrintRecoilBase("PostInit | m_ReloadTime: "+m_ReloadTime);
+		DbgPrintRecoilBase("PostInit | m_OffsetDirection: "+m_OffsetDirection);
 		DbgPrintRecoilBase("PostInit | m_Angle: "+m_Angle);
 		DbgPrintRecoilBase("PostInit | m_MouseOffsetTarget: "+m_MouseOffsetTarget);
 		DbgPrintRecoilBase("PostInit | m_CamOffsetDistance: "+m_CamOffsetDistance);
@@ -195,9 +198,11 @@ modded class RecoilBase
 		return stance_modifier;
 	}
 
-	float GetRandomPositiveNegative()
+	float GetOffsetDirection()
 	{
-		return Math.Round(Math.RandomFloat01()) * 2 - 1;
+		if (!m_Player || !m_Player.GetAimingModel()) return -1;
+
+		return m_Player.GetAimingModel().GetRecoilOffsetDirection();
 	}
 
 	void DbgPrintRecoilBase(string val)
