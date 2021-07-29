@@ -16,7 +16,7 @@ class PlayerRecoilConstants
 	static const float HANDS_X_OFFSET_MODIFIER = 0.1;
 	static const float HANDS_Y_OFFSET_MODIFIER = 0.8;
 
-	static const float MOUSE_X_OFFSET_MODIFIER = 0.8;
+	static const float MOUSE_X_OFFSET_MODIFIER = 0.7;
 }
 
 modded class RecoilBase
