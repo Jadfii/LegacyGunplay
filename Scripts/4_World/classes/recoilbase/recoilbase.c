@@ -33,6 +33,8 @@ modded class RecoilBase
 
 	protected float m_OffsetDirection;
 
+	protected int m_ShakeCount;
+
 	override void PostInit(Weapon_Base weapon)
 	{
 		// Bump the mouse offset distance!
@@ -81,11 +83,8 @@ modded class RecoilBase
 		DbgPrintRecoilBase("PostInit | m_StanceModifier: "+m_StanceModifier);
 		DbgPrintRecoilBase("PostInit | m_AttachmentsModifier: "+m_AttachmentsModifier);
 		DbgPrintRecoilBase("PostInit | m_OpticsCamModifier: "+m_OpticsCamModifier);
-		DbgPrintRecoilBase("PostInit | m_ReloadTime: "+m_ReloadTime);
 		DbgPrintRecoilBase("PostInit | m_OffsetDirection: "+m_OffsetDirection);
-		DbgPrintRecoilBase("PostInit | m_Angle: "+m_Angle);
 		DbgPrintRecoilBase("PostInit | m_MouseOffsetTarget: "+m_MouseOffsetTarget);
-		DbgPrintRecoilBase("PostInit | m_CamOffsetDistance: "+m_CamOffsetDistance);
 	}
 
 	override void ApplyMouseOffset(float pDt, out float pRecResultX, out float pRecResultY)
@@ -117,13 +116,37 @@ modded class RecoilBase
 		m_CurrentHandsOffsetX = pRecResultX;
 		m_CurrentHandsOffsetY = pRecResultY;
 
-		DbgPrintRecoilBase("ApplyHandsOffset | pRecResultX: "+pRecResultX.ToString());
-		DbgPrintRecoilBase("ApplyHandsOffset | pRecResultY: "+pRecResultY.ToString());
+		//DbgPrintRecoilBase("ApplyHandsOffset | pRecResultX: "+pRecResultX.ToString());
+		//DbgPrintRecoilBase("ApplyHandsOffset | pRecResultY: "+pRecResultY.ToString());
+	}
+
+	void ApplyShakeOffset(float pDt, out float pRecResultX, out float pRecResultY)
+	{
+		// Disable this for now
+		return;
+		float weight = Math.InverseLerp(1, 0, m_TimeNormalized);
+
+		m_ShakeCount++;
+		int shakes_threshold = Math.Round(m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSAimingModel, 2, 4));
+
+		if (m_ShakeCount > shakes_threshold)
+		{
+			m_ShakeCount = 0;
+
+			float modifier = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, 0.1, 0.4);
+			pRecResultX = modifier * weight * m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, 0, 1);
+			pRecResultY = modifier * weight * m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil, 0, 1);
+		}
+
+		DbgPrintRecoilBase("ApplyShakeOffset | pRecResultX: "+pRecResultX);
+		DbgPrintRecoilBase("ApplyShakeOffset | pRecResultY: "+pRecResultY);
 	}
 
 	override void Update(SDayZPlayerAimingModel pModel, out float axis_mouse_x, out float axis_mouse_y, out float axis_hands_x, out float axis_hands_y, float pDt)
 	{
 		super.Update(pModel, axis_mouse_x, axis_mouse_y, axis_hands_x, axis_hands_y, pDt);
+
+		ApplyShakeOffset(pDt, axis_hands_x, axis_hands_y);
 
 		axis_mouse_x *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
 		axis_mouse_y *= m_AttachmentsModifier * m_RandomRecoilModifier * m_StanceModifier;
