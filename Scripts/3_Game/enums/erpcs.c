@@ -1,4 +1,0 @@
-enum ERPCsModded
-{
-	RPC_USER_STATUS_MESSAGE,
-}
