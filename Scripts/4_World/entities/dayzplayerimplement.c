@@ -11,8 +11,8 @@ modded class DayZPlayerImplement extends DayZPlayer
 		m_IsShootingFromCamera = false;
 
 		m_MoveSettings = GetDayZPlayerType().CommandMoveSettingsW();
-		m_MoveSettings.m_fRunSpringTimeout = 0.5;
-		m_MoveSettings.m_fDirFilterTimeout = 0.3;
+		m_MoveSettings.m_fRunSpringTimeout = 0.4;
+		/*m_MoveSettings.m_fDirFilterTimeout = 0.3;*/
 		m_MoveSettings.m_fLeaningSpeed = 3;
 	}
 
@@ -102,7 +102,41 @@ modded class DayZPlayerImplement extends DayZPlayer
 		}
 	}
 
-	void ApplyMovementInertia(float pDt)
+	override bool ModCommandHandlerAfter(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished)
+	{
+		// Check if should force walking
+		// This is for when player is: ADS, leaning
+
+		//bool should_walk = IsADS() || m_MovementState.IsLeaning();
+		bool should_walk = IsADS();
+		
+		ForceWalkMask(should_walk);
+
+		//ApplyMovementInertia(pDt);
+
+		return super.ModCommandHandlerAfter(pDt, pCurrentCommandID, pCurrentCommandFinished);
+	}
+
+	override bool IsTryingHoldBreath()
+	{
+		return !IsSwayExhausted() && super.IsTryingHoldBreath();
+	}
+
+	override bool CanJump()
+	{
+		// Prevent jumping if gun is raised
+		if (IsRaised()) return false;
+
+		return super.CanJump();
+	}
+
+	void DbgPrintImplement(string val)
+	{
+		return;
+		Print("DayZPlayerImplement | " + val);
+	}
+
+	/*void ApplyMovementInertia(float pDt)
 	{
 		HumanCommandMove hcm = GetCommand_Move();
 		if (!hcm) return;
@@ -146,39 +180,5 @@ modded class DayZPlayerImplement extends DayZPlayer
 		}
 		
 		m_IsMoving = isMoving;
-	}
-
-	override bool ModCommandHandlerAfter(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished)
-	{
-		// Check if should force walking
-		// This is for when player is: ADS, leaning
-
-		//bool should_walk = IsADS() || m_MovementState.IsLeaning();
-		bool should_walk = IsADS();
-		
-		ForceWalkMask(should_walk);
-
-		ApplyMovementInertia(pDt);
-
-		return super.ModCommandHandlerAfter(pDt, pCurrentCommandID, pCurrentCommandFinished);
-	}
-
-	override bool IsTryingHoldBreath()
-	{
-		return !IsSwayExhausted() && super.IsTryingHoldBreath();
-	}
-
-	override bool CanJump()
-	{
-		// Prevent jumping if gun is raised
-		if (IsRaised()) return false;
-
-		return super.CanJump();
-	}
-
-	void DbgPrintImplement(string val)
-	{
-		return;
-		Print("DayZPlayerImplement | " + val);
-	}
+	}*/
 }
