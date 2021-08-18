@@ -152,7 +152,10 @@ modded class DayZPlayerImplement extends DayZPlayer
 	{
 		// Check if should force walking
 		// This is for when player is: ADS, leaning
-		bool should_walk = IsADS() || m_MovementState.IsLeaning();
+
+		//bool should_walk = IsADS() || m_MovementState.IsLeaning();
+		bool should_walk = IsADS();
+		
 		ForceWalkMask(should_walk);
 
 		ApplyMovementInertia(pDt);
