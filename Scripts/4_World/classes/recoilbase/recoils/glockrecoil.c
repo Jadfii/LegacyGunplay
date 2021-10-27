@@ -10,7 +10,7 @@ modded class GlockRecoil extends RecoilBase
 		vector point_2;
 		vector point_3;
 		vector point_4;
-		point_1[0] = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil,0.5,1.5); point_1[1] = 2; point_1[2] = 0;
+		point_1[0] = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil,0.25,1.25); point_1[1] = 2; point_1[2] = 0;
 		point_2[0] = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil,-0.25,0.25); point_2[1] = 3; point_2[2] = 0;
 		point_3[0] = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil,-0.5,-2); point_3[1] = 1; point_3[2] = 0;
 		point_4[0] = m_Player.GetRandomGeneratorSyncManager().GetRandomInRange(RandomGeneratorSyncUsage.RGSRecoil,-0.25,0); point_4[1] = 0.5; point_4[2] = 0;

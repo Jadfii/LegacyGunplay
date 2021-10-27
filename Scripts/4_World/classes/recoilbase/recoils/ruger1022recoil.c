@@ -4,6 +4,6 @@ modded class Ruger1022Recoil extends RecoilBase
 	{
 		super.Init();
 
-		m_CamOffsetDistance *= 0.5;
+		m_CamOffsetDistance *= 0.35;
 	}
 }

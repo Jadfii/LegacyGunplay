@@ -4,6 +4,6 @@ modded class Izh43Recoil extends RecoilBase
 	{
 		super.Init();
 
-		m_CamOffsetDistance *= 0.2;
+		m_CamOffsetDistance *= 0.1;
 	}
 }
