@@ -83,8 +83,13 @@ modded class DayZPlayerImplement extends DayZPlayer
 
 	bool IsInventoryMenuOpen()
 	{
-		UIScriptedMenu menu = GetGame().GetUIManager().GetMenu();
-		return menu && (menu.GetID() == MENU_INVENTORY || menu.GetID() == MENU_INSPECT);
+		if (GetGame().IsClient())
+		{
+			UIScriptedMenu menu = GetGame().GetUIManager().GetMenu();
+			return menu && (menu.GetID() == MENU_INVENTORY || menu.GetID() == MENU_INSPECT);
+		}
+
+		return false;
 	}
 
 	void ForceWalkMask(bool shouldWalk)
