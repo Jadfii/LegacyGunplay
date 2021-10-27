@@ -163,7 +163,14 @@ modded class RecoilBase
 		ACOGOptic acog;
 		if (weapon && Class.CastTo(acog, weapon.GetAttachedOptics()))
 		{
-			modifier = 0.5;
+			modifier = 0.35;
+		}
+
+		// Prevent camera clipping for the kobra by reducing the Z camera offset
+		KobraOptic kobra;
+		if (weapon && Class.CastTo(kobra, weapon.GetAttachedOptics()))
+		{
+			modifier = 0.6;
 		}
 
 		return modifier;
