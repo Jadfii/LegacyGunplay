@@ -10,10 +10,10 @@ modded class DayZPlayerImplement extends DayZPlayer
 	{
 		m_IsShootingFromCamera = false;
 
-		m_MoveSettings = GetDayZPlayerType().CommandMoveSettingsW();
+		/*m_MoveSettings = GetDayZPlayerType().CommandMoveSettingsW();
 		m_MoveSettings.m_fRunSpringTimeout = 0.4;
-		/*m_MoveSettings.m_fDirFilterTimeout = 0.3;*/
-		m_MoveSettings.m_fLeaningSpeed = 3;
+		//m_MoveSettings.m_fDirFilterTimeout = 0.3;
+		m_MoveSettings.m_fLeaningSpeed = 3;*/
 	}
 
 	bool IsSwayExhausted()
@@ -140,50 +140,4 @@ modded class DayZPlayerImplement extends DayZPlayer
 		return;
 		Print("DayZPlayerImplement | " + val);
 	}
-
-	/*void ApplyMovementInertia(float pDt)
-	{
-		HumanCommandMove hcm = GetCommand_Move();
-		if (!hcm) return;
-
-		float current_movement_speed = hcm.GetCurrentMovementSpeed();
-		float current_movement_angle;
-
-		bool isMoving = hcm.GetCurrentInputAngle(current_movement_angle);
-		bool isMovingForward = current_movement_angle == 0;
-
-		bool isSprinting = current_movement_speed >= DayZPlayerConstants.MOVEMENTIDX_SPRINT - 0.1;
-		bool isSprintingForward = isSprinting && isMovingForward;
-
-		// Finish timer, unlock sprint
-		if (m_MovementSpeedTimeout >= 0.3)
-		{
-			DbgPrintImplement("finish movement speed timer, unlock sprint");
-
-			m_MovementSpeedTimeout = 0;
-			GetUApi().GetInputByName("UATurbo").Unlock();
-		}
-
-		// If timer is initiated, run the timer by adding delta time
-		if (m_MovementSpeedTimeout > 0)
-		{
-			m_MovementSpeedTimeout += pDt;
-
-			DbgPrintImplement("isSprintingForward: "+isSprintingForward);
-			DbgPrintImplement("current_movement_speed: "+current_movement_speed);
-			DbgPrintImplement("m_MovementSpeedTimeout: "+m_MovementSpeedTimeout);
-		}
-
-		// Init timer if player has started sprinting forward from idle
-		// Lock sprint when timer is initiated so that the player is forced to run
-		if (isSprintingForward && isMoving != m_IsMoving)
-		{
-			DbgPrintImplement("init movement speed timer, lock sprint");
-
-			m_MovementSpeedTimeout += pDt;
-			GetUApi().GetInputByName("UATurbo").Lock();
-		}
-		
-		m_IsMoving = isMoving;
-	}*/
 }
