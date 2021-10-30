@@ -26,7 +26,7 @@ modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 			return false;
 
 		// Exception if optic is 2D but has the ability to access ironsights
-		if (m_opticsHasWeaponOverride && !optics.IsUsingWeaponIronsightsOverride())
+		if (optics.HasWeaponIronsightsOverride() && optics.IsUsingWeaponIronsightsOverride())
 			return false;
 
 		if (GetGame().ConfigIsExisting("cfgVehicles " + optics.GetType() + " OpticsInfo useModelOptics"))
@@ -193,7 +193,7 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 		if (optics)
 		{
 			float opticsFOV = optics.GetCurrentStepFOV();
-			DebugPrintCamera("HoldBreathFOVEffect | opticsFOV: "+opticsFOV);
+			//DebugPrintCamera("HoldBreathFOVEffect | opticsFOV: "+opticsFOV);
 			opticsFOV *= PlayerCameraConstants.OPTICS_FOV_MODIFIER;
 
 			if (optics.GetCurrentStepFOV() >= GameConstants.DZPLAYER_CAMERA_FOV_EYEZOOM && (m_pPlayer.IsHoldingBreath() || m_pPlayer.IsEyeZoom()))
