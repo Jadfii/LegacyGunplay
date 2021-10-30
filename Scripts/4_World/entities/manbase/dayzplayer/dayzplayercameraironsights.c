@@ -176,7 +176,7 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult)
 	{
 		pOutResult.m_iDirectBone = m_iBoneIndex;
-		pOutResult.m_iDirectBoneMode = 3;
+		pOutResult.m_iDirectBoneMode = 4;
 	
 		pOutResult.m_fFovAbsolute = HoldBreathFOVEffect(pDt);
 		pOutResult.m_bUpdateWhenBlendOut = false;
