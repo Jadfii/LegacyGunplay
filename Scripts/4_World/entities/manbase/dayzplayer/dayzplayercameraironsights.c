@@ -6,7 +6,6 @@ class PlayerCameraConstants
 
 modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 {
-
 	void DayZPlayerCameraIronsights(DayZPlayer pPlayer, HumanInputController pInput)
 	{
 		m_iBoneIndex = pPlayer.GetBoneIndexByName("RightHand_Dummy");
@@ -136,10 +135,12 @@ modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 		// of the gun - a "decouple" effect
 		if (!IsCurrentOptic2D())
 		{
-			vector matTM_angles = Math3D.MatrixToAngles(matTM);
-			matTM_angles[0] = matTM_angles[0] - player.GetAimingModel().m_CurrentHandsOffsetY;
-			matTM_angles[1] = matTM_angles[1] + player.GetAimingModel().m_CurrentHandsOffsetX;
-			Math3D.YawPitchRollMatrix(matTM_angles, matTM);
+			vector cameraTM_angles = Math3D.MatrixToAngles(pOutResult.m_CameraTM);
+
+			cameraTM_angles[0] = cameraTM_angles[0] - player.GetAimingModel().m_CurrentHandsOffsetX;
+			cameraTM_angles[1] = cameraTM_angles[1] - player.GetAimingModel().m_CurrentHandsOffsetY;
+			
+			Math3D.YawPitchRollMatrix(cameraTM_angles, pOutResult.m_CameraTM);
 		}
 		
 		// aiming model offsets
@@ -148,7 +149,8 @@ modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 		
 		// final offset matrix
 		Math3D.MatrixMultiply4(dynamics, aimingMatTM, dynamics);
-		Math3D.MatrixMultiply4(dynamics, matTM, pOutResult.m_CameraTM);
+		Math3D.MatrixMultiply4(dynamics, matTM, matTM);
+		Math3D.MatrixMultiply4(matTM, pOutResult.m_CameraTM, pOutResult.m_CameraTM);
 
 		AdjustCameraParameters(pDt, pOutResult);
 		UpdateBatteryOptics(GetCurrentSightEntity());
@@ -174,7 +176,7 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult)
 	{
 		pOutResult.m_iDirectBone = m_iBoneIndex;
-		pOutResult.m_iDirectBoneMode = 4;
+		pOutResult.m_iDirectBoneMode = 3;
 	
 		pOutResult.m_fFovAbsolute = HoldBreathFOVEffect(pDt);
 		pOutResult.m_bUpdateWhenBlendOut = false;
