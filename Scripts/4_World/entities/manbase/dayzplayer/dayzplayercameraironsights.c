@@ -60,24 +60,16 @@ modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom)
 	{
-		PPEffects.ResetPPMask();
-		PPEffects.SetLensEffect(0, 0, 0, 0);
-		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
-		PPEffects.SetBlurOptics(0);
+		super.SetCameraPP(state, launchedFrom);
 
-		if (IsCameraNV())
-		{
-			SetNVPostprocess(NVTypes.NV_GOGGLES);
-		}
-		else
-		{
-			SetNVPostprocess(NVTypes.NONE);
-		}
+		m_RequesterADS.Stop();
+	}
 
-		if (m_weaponUsed)
-		{
-			m_weaponUsed.HideWeaponBarrel(false);
-		}
+	override void SetCameraPPDelay(DayZPlayerCamera pPrevCamera)
+	{
+		super.SetCameraPPDelay(pPrevCamera);
+
+		m_CameraPPDelay *= 1.5;
 	}
 
 	override void AdjustCameraParameters(float pDt, inout DayZPlayerCameraResult pOutResult)
@@ -91,7 +83,7 @@ modded class DayZPlayerCameraIronsights extends DayZPlayerCameraBase
 		pOutResult.m_fUseHeading = 0;
 		pOutResult.m_fInsideCamera = 1.0;
 		pOutResult.m_fShootFromCamera = m_fShootFromCamera;
-		pOutResult.m_fNearPlane = 0.04; //0.07 default
+		pOutResult.m_fNearPlane = 0.04; 
 	}
 
 	override void OnUpdate(float pDt, out DayZPlayerCameraResult pOutResult)
@@ -184,7 +176,7 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 		pOutResult.m_fUseHeading = 0;
 		pOutResult.m_fInsideCamera = 1.0;
 		pOutResult.m_fShootFromCamera = m_fShootFromCamera;
-		pOutResult.m_fNearPlane = 0.06; //0.07 default
+		pOutResult.m_fNearPlane = Math.Clamp(m_opticsUsed.GetNearPlaneValue() - m_RecoilOffsetZ, CONST_NEARPLANE_OPTICS, 10.0);
 	}
 	
 	override float HoldBreathFOVEffect(float pDt)
@@ -219,40 +211,16 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 
 	override void SetCameraPP(bool state, DayZPlayerCamera launchedFrom)
 	{
-		PPEffects.ResetPPMask();
-		PPEffects.SetLensEffect(0, 0, 0, 0);
-		PPEffects.OverrideDOF(false, 0, 0, 0, 0, 1);
-		PPEffects.SetBlurOptics(0);
+		super.SetCameraPP(state, launchedFrom);
 
-		if (m_weaponUsed)
-		{
-			m_weaponUsed.HideWeaponBarrel(state && IsCurrentOptic2D());
-		}
-
-		if (!NVGoggles.Cast(m_opticsUsed) && m_opticsUsed && m_opticsUsed.IsNVOptic())
-		{
-			if (m_opticsUsed.IsWorking())
-			{
-				SetCameraNV(true);
-				SetNVPostprocess(NVTypes.NV_OPTICS_ON);
-			}
-			else
-			{
-				SetCameraNV(false);
-				SetNVPostprocess(NVTypes.NV_OPTICS_OFF);
-			}
-		}
-		else
-		{
-			if (IsCameraNV())
-			{
-				SetNVPostprocess(NVTypes.NV_GOGGLES);
-			}
-			else
-			{
-				SetNVPostprocess(NVTypes.NONE);
-			}
-		}
+		m_RequesterADS.Stop();
 	}
-};
+
+	override void SetCameraPPDelay(DayZPlayerCamera pPrevCamera)
+	{
+		super.SetCameraPPDelay(pPrevCamera);
+
+		m_CameraPPDelay *= 1.5;
+	}
+}
 
