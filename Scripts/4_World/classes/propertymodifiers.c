@@ -11,28 +11,6 @@ modded class PropertyModifiers
 	float m_BarrelLength = 1;
 	float m_Weight = 1;
 
-	ref array<string> m_ButtstockSlots = {
-		"weaponButtstockAK",
-		"weaponButtstockFal",
-		"weaponButtstockM4",
-		"weaponButtstockMP5",
-		"weaponButtstockSaiga"
-	};
-	ref array<string> m_HandguardSlots = {
-		"weaponHandguardAK",
-		"weaponHandguardM4",
-		"weaponHandguardMP5"
-	};
-	ref array<string> m_MuzzleSlots = {
-		"weaponMuzzle",
-		"suppressorImpro",
-		"pistolMuzzle",
-		"weaponMuzzleMosin",
-		"weaponMuzzleM4",
-		"weaponMuzzleAK",
-		"weaponMuzzleMP5"
-	};
-
 	float GetBarrelLength()
 	{
 		float length = 1;
@@ -98,11 +76,12 @@ modded class PropertyModifiers
 		{
 			int slotId = m_OwnerItem.GetInventory().GetAttachmentSlotId(i);
 			string slot_name = InventorySlots.GetSlotName(slotId);
+			slot_name.ToLower();
 
 			// here we are checking our list of slots to see:
 			// 1) does the slot exist on the weapon?
 			// 2) does the weapon have an item on that slot?
-			if (m_ButtstockSlots && m_ButtstockSlots.Count() > 0 && m_ButtstockSlots.Find(slot_name) > -1)
+			if (slot_name.Contains("buttstock"))
 			{
 				has_buttstock_slot = true;
 				if (Class.CastTo(attachment, m_OwnerItem.GetInventory().FindAttachment(slotId)))
@@ -110,7 +89,7 @@ modded class PropertyModifiers
 					m_HasButtstockAttachment = true;
 				}
 			}
-			if (m_HandguardSlots && m_HandguardSlots.Count() > 0 && m_HandguardSlots.Find(slot_name) > -1)
+			if (slot_name.Contains("handguard"))
 			{
 				has_handguard_slot = true;
 				if (Class.CastTo(attachment, m_OwnerItem.GetInventory().FindAttachment(slotId)))
@@ -118,7 +97,7 @@ modded class PropertyModifiers
 					m_HasHandguardAttachment = true;
 				}
 			}
-			if (m_MuzzleSlots && m_MuzzleSlots.Count() > 0 && m_MuzzleSlots.Find(slot_name) > -1 && Class.CastTo(attachment, m_OwnerItem.GetInventory().FindAttachment(slotId)))
+			if ((slot_name.Contains("muzzle") || slot_name.Contains("suppressor")) && Class.CastTo(attachment, m_OwnerItem.GetInventory().FindAttachment(slotId)))
 			{
 				m_HasMuzzleAttachment = true;
 			}
