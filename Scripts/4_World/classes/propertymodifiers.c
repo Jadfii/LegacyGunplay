@@ -41,10 +41,54 @@ modded class PropertyModifiers
 		return modifier;
 	}
 
+	float GetInertiaModifier(ItemBase attachment)
+	{
+		float modifier = 1;
+
+		Magazine magazine;
+		if (Class.CastTo(magazine, attachment))
+		{
+			string magazine_type = magazine.GetType();
+			magazine_type.ToLower();
+
+			if (magazine_type.Contains("drum"))
+			{
+				modifier *= 1.6;
+			}
+
+			if (magazine_type.Contains("couple"))
+			{
+				modifier *= 1.25;
+			}
+
+			int magazine_size = magazine.GetAmmoMax();
+			DebugPropertyModifiers("magazine_size: "+magazine_size);
+
+			modifier *= Math.Clamp(magazine_size * 0.035, 1, 5);
+		}
+		else
+		{
+			modifier *= PropertyModifiers.GetFloatModifier(attachment, "inertiaMultiplier");
+		}
+
+		DebugPropertyModifiers("attachment: "+attachment);
+		DebugPropertyModifiers("GetInertiaModifier: "+modifier);
+
+		return modifier;
+	}
+
 	static float GetFloatModifier(ItemBase item, string modifier_name)
 	{
 		if (item.ConfigIsExisting(modifier_name))
 			return item.ConfigGetFloat(modifier_name);
+
+		return 1;
+	}
+
+	static float GetVectorModifier(ItemBase item, string modifier_name)
+	{
+		if (item.ConfigIsExisting(modifier_name))
+			return item.ConfigGetVector(modifier_name)[0];
 
 		return 1;
 	}
@@ -61,9 +105,9 @@ modded class PropertyModifiers
 
 		// Reset modifiers
 		m_RecoilModifiers = Vector(1, 1, 1);
-		m_RecoilModifier = GetFloatModifier(m_OwnerItem, "recoilMultiplier");
+		m_RecoilModifier = GetVectorModifier(m_OwnerItem, "recoilModifier");
 		m_InertiaModifier = GetFloatModifier(m_OwnerItem, "inertiaMultiplier");
-		m_SwayModifier = GetFloatModifier(m_OwnerItem, "swayMultiplier");
+		m_SwayModifier = 1;
 		m_HasButtstockAttachment = false;
 		m_HasHandguardAttachment = false;
 		m_HasMuzzleAttachment = false;
@@ -105,10 +149,21 @@ modded class PropertyModifiers
 			// find attachment in slot, continue if no item attached
 			if (!Class.CastTo(attachment, m_OwnerItem.GetInventory().FindAttachment(slotId))) continue;
 
+			float attachment_inertia_modifier = GetInertiaModifier(attachment);
+
+			float attachment_recoil_modifier = PropertyModifiers.GetVectorModifier(attachment, "recoilModifier");
+			if (attachment_recoil_modifier != 1)
+			{
+				attachment_recoil_modifier *= 1.05;
+			}
+
+			//DebugPropertyModifiers("attachment: "+attachment);
+			//DebugPropertyModifiers("attachment_recoil_modifier: "+attachment_recoil_modifier);
+			
 			// apply modifier
-			m_RecoilModifier *= PropertyModifiers.GetFloatModifier(attachment, "recoilMultiplier");
-			m_InertiaModifier *= PropertyModifiers.GetFloatModifier(attachment, "inertiaMultiplier");
-			m_SwayModifier *= PropertyModifiers.GetFloatModifier(attachment, "swayMultiplier");
+			m_RecoilModifier *= attachment_recoil_modifier;
+			m_InertiaModifier *= attachment_inertia_modifier;
+			//m_SwayModifier *= PropertyModifiers.GetVectorModifier(attachment, "swayModifier");
 		}
 
 		// true if attachment was found, or no slot was found

@@ -132,7 +132,7 @@ class CfgMagazines
 {
 	/* MAGAZINES */
 	class Magazine_Base;
-	class Mag_MP5_15Rnd: Magazine_Base
+	/*class Mag_MP5_15Rnd: Magazine_Base
 	{
 		inertiaMultiplier=0.9;
 	};
@@ -155,7 +155,7 @@ class CfgMagazines
 	class Mag_Saiga_Drum20Rnd: Magazine_Base
 	{
 		inertiaMultiplier=1.4;
-	};
+	};*/
 };
 
 class cfgVehicles
@@ -226,11 +226,13 @@ class cfgVehicles
 	{
 		inertiaMultiplier=1.5;
 		recoilMultiplier=0.8;
+		recoilModifier[]={0.69999999,0.69999999,0.69999999};
 	};
 	class M4_CQBBttstck: Inventory_Base
 	{
 		inertiaMultiplier=0.6;
 		recoilMultiplier=1.2;
+		recoilModifier[]={0.89999998,0.89999998,0.89999998};
 	};
 	class AK_WoodBttstck: Inventory_Base
 	{
@@ -272,11 +274,13 @@ class cfgVehicles
 	{
 		inertiaMultiplier=1.05;
 		recoilMultiplier=1.05;
+		recoilModifier[]={0.89999998,0.89999998,0.89999998};
 	};
 	class M4_MPHndgrd: Inventory_Base
 	{
 		inertiaMultiplier=1.05;
 		recoilMultiplier=0.9;
+		recoilModifier[]={0.69999999,0.69999999,0.69999999};
 	};
 	class AK_WoodHndgrd: Inventory_Base
 	{
@@ -310,5 +314,6 @@ class cfgVehicles
 		displayName="ATLAS Bipod";
 		descriptionShort="This bipod provides solid support for longer range engagements. When bipod is deployed and the firer is prone, weapon accuracy is increased dramatically.";
 		itemSize[]={1, 2};
+		recoilModifier[]={1.0, 1.0, 1.0};
 	};
 };
