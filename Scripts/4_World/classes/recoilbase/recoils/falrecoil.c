@@ -5,6 +5,6 @@ modded class FALRecoil extends RecoilBase
 		super.Init();
 	
 		m_MouseOffsetDistance *= 1.15;
-		m_CamOffsetDistance *= 2;
+		m_CamOffsetDistance *= 1.2;
 	}
 }
