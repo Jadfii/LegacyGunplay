@@ -4,6 +4,6 @@ modded class FamasRecoil extends RecoilBase
 	{
 		super.Init();
 
-		m_CamOffsetDistance *= 0.7;
+		m_CamOffsetDistance *= 0.5;
 	}
 }
