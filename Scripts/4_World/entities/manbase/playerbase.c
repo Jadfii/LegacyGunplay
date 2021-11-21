@@ -6,7 +6,7 @@ modded class PlayerBase extends ManBase
 
 		if (IsADS() && IsSwayExhausted())
 		{
-			StaminaHUDNotifier(false);
+			//StaminaHUDNotifier(false);
 		}
 	}
 
