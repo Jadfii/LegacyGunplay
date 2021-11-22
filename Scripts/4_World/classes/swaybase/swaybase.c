@@ -19,11 +19,9 @@ modded class PlayerSwayConstants
 	static const float SWAY_MULTIPLIER_EXHAUSTED = 2.0;
 	static const float SWAY_MULTIPLIER_BIPOD = 0.1;
 
-	static const float SWAY_BLEND_SMOOTHING = 0.2; // 0.1..0.4
-
 	static const float STAMINA_MULTIPLIER_SCALE = 2;
 
-	static const float SWAY_STATE_TRANSITION_TIME_DEFAULT = 0.25;
+	static const float SWAY_STATE_TRANSITION_TIME_DEFAULT = 0.35;
 	static const float SWAY_STATE_TRANSITION_TIME_EXHAUSTED = 3;
 }
 
