@@ -49,7 +49,7 @@ class InertiaBase
 		float attachments_modifier = m_Weapon.GetPropertyModifierObject().m_InertiaModifier;
 		dynamics_modifier *= attachments_modifier;
 
-		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 1.4;
+		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 1.75;
 		dynamics_modifier *= barrel_length;
 		
 		float weapon_weight = m_Weapon.GetPropertyModifierObject().m_Weight * 0.4;
