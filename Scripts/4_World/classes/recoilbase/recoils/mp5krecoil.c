@@ -4,7 +4,7 @@ modded class Mp5kRecoil extends RecoilBase
 	{
 		super.Init();
 	
-		m_MouseOffsetDistance *= 1.1;
+		m_MouseOffsetDistance *= 1.3;
 		m_CamOffsetDistance *= 1.2;
 	}
 }
