@@ -214,6 +214,8 @@ modded class DayZPlayerCameraOptics extends DayZPlayerCameraIronsights
 		super.SetCameraPP(state, launchedFrom);
 
 		m_RequesterADS.Stop();
+
+		if (m_weaponUsed) m_weaponUsed.HideWeaponBarrel(false);
 	}
 
 	override void SetCameraPPDelay(DayZPlayerCamera pPrevCamera)
