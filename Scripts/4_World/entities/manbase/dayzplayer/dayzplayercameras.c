@@ -47,7 +47,7 @@ modded class DayZPlayerCameras
 		float barrel_length = weapon.GetWeaponLength();
 		transTime *= barrel_length;
 		
-		transTime = Math.Clamp(transTime, TIME_CAMERACHANGE_MIN, TIME_CAMERACHANGE_MAX);
+		transTime = Math.Clamp(transTime * 0.9, TIME_CAMERACHANGE_MIN, TIME_CAMERACHANGE_MAX);
 
 		DbgPrintPlayerCameras("barrel_length: "+barrel_length);
 		DbgPrintPlayerCameras("weapon_weight: "+weapon_weight);
