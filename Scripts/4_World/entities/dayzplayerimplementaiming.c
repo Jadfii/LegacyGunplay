@@ -178,8 +178,8 @@ modded class DayZPlayerImplementAiming
 		}
 		
 		//! hands offset
-		float hands_offset_x = breathing_offset_x + noise_offset_x + recoil_offset_hands_x + shake_offset_x + kuru_offset_x + movement_offset_x;
-		float hands_offset_y = breathing_offset_y + noise_offset_y + recoil_offset_hands_y + shake_offset_y + kuru_offset_y + movement_offset_y;
+		float hands_offset_x = breathing_offset_x + noise_offset_x + recoil_offset_hands_x + (shake_offset_x * 0.5) + kuru_offset_x + movement_offset_x;
+		float hands_offset_y = breathing_offset_y + noise_offset_y + recoil_offset_hands_y + (shake_offset_y * 0.5) + kuru_offset_y + movement_offset_y;
 
 		float final_hands_offset_x = hands_offset_x;
 		float final_hands_offset_y = hands_offset_y;
