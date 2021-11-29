@@ -1,7 +1,7 @@
 class PlayerInertiaConstants
 {
 	static const float DEFAULT_STRENGTH = 20;
-	static const float DEFAULT_SMOOTH_TIME = 0.6;
+	static const float DEFAULT_SMOOTH_TIME = 0.45;
 
 	static const float MIN_SMOOTH_TIME = 0.3;
 	static const float MAX_SMOOTH_TIME = 0.6;
@@ -49,7 +49,7 @@ class InertiaBase
 		float attachments_modifier = m_Weapon.GetPropertyModifierObject().m_InertiaModifier;
 		dynamics_modifier *= attachments_modifier;
 
-		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 1.75;
+		float barrel_length = m_Weapon.GetPropertyModifierObject().m_BarrelLength * 1.5;
 		dynamics_modifier *= barrel_length;
 		
 		float weapon_weight = m_Weapon.GetPropertyModifierObject().m_Weight * 0.4;

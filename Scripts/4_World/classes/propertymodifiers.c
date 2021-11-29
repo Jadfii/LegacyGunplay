@@ -25,7 +25,7 @@ modded class PropertyModifiers
 			if (ItemBase.CastTo(attachment, weapon.FindAttachmentBySlotName("weaponBayonet")) || ItemBase.CastTo(attachment, weapon.FindAttachmentBySlotName("weaponBayonetAK")) || ItemBase.CastTo(attachment, weapon.FindAttachmentBySlotName("weaponBayonetMosin")) || ItemBase.CastTo(attachment, weapon.FindAttachmentBySlotName("weaponBayonetSKS")) || ItemBase.CastTo(attachment, weapon.GetAttachedSuppressor()))
 			{
 				// Put a cheeky modifier on the attachment length
-				length += attachment.m_ItemModelLength * 1.5;
+				length += attachment.m_ItemModelLength;
 			}
 		}
 
