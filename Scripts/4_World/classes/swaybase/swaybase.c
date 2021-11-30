@@ -15,7 +15,7 @@ modded class PlayerSwayConstants
 	static const float SWAY_MULTIPLIER_DEFAULT = 1;
 	static const float SWAY_MULTIPLIER_CROUCHED = 0.75;
 	static const float SWAY_MULTIPLIER_PRONE = 0.5;
-	static const float SWAY_MULTIPLIER_STABLE = 0.3; // holding breath
+	static const float SWAY_MULTIPLIER_STABLE = 0.2; // holding breath
 	static const float SWAY_MULTIPLIER_EXHAUSTED = 2.0;
 	static const float SWAY_MULTIPLIER_BIPOD = 0.1;
 
