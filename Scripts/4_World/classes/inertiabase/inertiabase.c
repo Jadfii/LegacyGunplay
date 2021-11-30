@@ -31,7 +31,7 @@ class InertiaBase
 		m_Weapon = weapon;
 		m_Player = PlayerBase.Cast(weapon.GetHierarchyRootPlayer());
 
-		if (weapon)
+		if (m_Weapon)
 		{
 			m_Weapon.GetPropertyModifierObject().UpdateModifiers();
 		}
