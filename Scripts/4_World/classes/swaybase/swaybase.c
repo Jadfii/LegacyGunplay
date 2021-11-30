@@ -168,7 +168,7 @@ class SwayBase
 
 		if (m_SwayState == PlayerSwayStates.EXHAUSTED)
 		{
-			m_Player.OnHoldBreathExhausted();
+			//m_Player.OnHoldBreathExhausted();
 		}
 	}
 
