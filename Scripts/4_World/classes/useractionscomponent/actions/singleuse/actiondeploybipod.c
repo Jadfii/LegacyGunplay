@@ -1,9 +1,9 @@
 
-class ActionDeployBipod extends ActionSingleUseBase
+class LG_ActionDeployBipod extends ActionSingleUseBase
 {
 	AtlasBipod m_Bipod;
 
-	void ActionDeployBipod()
+	void LG_ActionDeployBipod()
 	{
 		m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_ATTACHBARREL;
 	}

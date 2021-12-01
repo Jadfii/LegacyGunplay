@@ -25,8 +25,8 @@ modded class Weapon_Base extends Weapon
 	{
 		super.SetActions();
 
-		AddAction(ActionDeployBipod);
-		AddAction(ActionRetractBipod);
+		AddAction(LG_ActionDeployBipod);
+		AddAction(LG_ActionRetractBipod);
 	}
 
 	override bool LiftWeaponCheck(PlayerBase player)

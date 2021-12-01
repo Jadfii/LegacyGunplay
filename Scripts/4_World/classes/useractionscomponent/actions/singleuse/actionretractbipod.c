@@ -1,4 +1,4 @@
-class ActionRetractBipod extends ActionDeployBipod
+class LG_ActionRetractBipod extends LG_ActionDeployBipod
 {
 	override string GetText()
 	{

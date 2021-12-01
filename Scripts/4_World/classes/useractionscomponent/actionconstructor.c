@@ -4,7 +4,7 @@ modded class ActionConstructor
 	{
 		super.RegisterActions(actions);
 
-		actions.Insert(ActionDeployBipod);
-		actions.Insert(ActionRetractBipod);
+		actions.Insert(LG_ActionDeployBipod);
+		actions.Insert(LG_ActionRetractBipod);
 	}
 }
