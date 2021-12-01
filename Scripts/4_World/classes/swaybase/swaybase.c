@@ -10,7 +10,7 @@ class PlayerSwayStates
 modded class PlayerSwayConstants
 {
 	// This modifier is applied to the base sway before stamina effects
-	static const float BASE_SWAY_MODIFIER = 1;
+	static const float BASE_SWAY_MODIFIER = 0.9;
 
 	static const float SWAY_MULTIPLIER_DEFAULT = 1;
 	static const float SWAY_MULTIPLIER_CROUCHED = 0.75;
@@ -19,7 +19,7 @@ modded class PlayerSwayConstants
 	static const float SWAY_MULTIPLIER_EXHAUSTED = 2.0;
 	static const float SWAY_MULTIPLIER_BIPOD = 0.1;
 
-	static const float STAMINA_MULTIPLIER_SCALE = 2;
+	static const float STAMINA_MULTIPLIER_SCALE = 1.5;
 
 	static const float SWAY_STATE_TRANSITION_TIME_DEFAULT = 0.35;
 	static const float SWAY_STATE_TRANSITION_TIME_EXHAUSTED = 3;
