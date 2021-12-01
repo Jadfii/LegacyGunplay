@@ -4,7 +4,7 @@ modded class M4a1Recoil extends RecoilBase
 	{
 		super.Init();
 
-		m_MouseOffsetDistance *= 0.55;
+		m_MouseOffsetDistance *= 0.8;
 		//m_CamOffsetDistance *= 1.2;
 	}
 }
