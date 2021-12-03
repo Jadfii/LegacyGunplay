@@ -15,7 +15,7 @@ modded class PlayerSwayConstants
 	static const float SWAY_MULTIPLIER_DEFAULT = 1;
 	static const float SWAY_MULTIPLIER_CROUCHED = 0.75;
 	static const float SWAY_MULTIPLIER_PRONE = 0.5;
-	static const float SWAY_MULTIPLIER_STABLE = 0.2; // holding breath
+	static const float SWAY_MULTIPLIER_STABLE = 0.175; // holding breath
 	static const float SWAY_MULTIPLIER_EXHAUSTED = 2.0;
 	static const float SWAY_MULTIPLIER_BIPOD = 0.1;
 
@@ -304,9 +304,8 @@ class SwayBase
 	float GetPlayerStamina()
 	{
 		float stamina_cap = m_Player.GetStaminaHandler().GetStaminaCap();
-		float stamina = m_Player.GetStaminaHandler().GetSyncedStamina();
-		if (!GetGame().IsMultiplayer()) // offline mode
-			stamina = m_Player.GetStaminaHandler().GetStamina();
+		//float stamina = m_Player.GetStaminaHandler().GetSyncedStamina();
+		float stamina = m_Player.GetStaminaHandler().GetStamina();
 
 		return Math.InverseLerp(0, stamina_cap, stamina);
 	}
