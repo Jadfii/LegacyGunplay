@@ -52,6 +52,11 @@ modded class PropertyModifiers
 			string magazine_type = magazine.GetType();
 			magazine_type.ToLower();
 
+			if (magazine_type == "Mag_PP19_64Rnd")
+			{
+				return modifier;
+			}
+
 			if (magazine_type.Contains("drum"))
 			{
 				modifier *= 1.6;
