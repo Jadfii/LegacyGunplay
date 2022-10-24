@@ -24,9 +24,4 @@ modded class PlayerBase extends ManBase
 			SetInvisibleRecursive(false, this, clothingArray);
 		}
 	}
-
-	override bool CanSprint()
-	{
-		return !m_MovementState.IsLeaning() && super.CanSprint();
-	}
 }
