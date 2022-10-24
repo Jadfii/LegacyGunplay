@@ -1,6 +1,5 @@
 modded class DayZPlayerImplement extends DayZPlayer
 {
-	protected bool m_IsForcedWalking = false;
 	protected bool m_IsMoving = false;
 	protected bool m_IsUsingBipod = false;
 
@@ -79,47 +78,6 @@ modded class DayZPlayerImplement extends DayZPlayer
 		}
 
 		super.HandleADS();
-	}
-
-	bool IsInventoryMenuOpen()
-	{
-		if (GetGame().IsClient())
-		{
-			UIScriptedMenu menu = GetGame().GetUIManager().GetMenu();
-			return menu && (menu.GetID() == MENU_INVENTORY || menu.GetID() == MENU_INSPECT);
-		}
-
-		return false;
-	}
-
-	void ForceWalkMask(bool shouldWalk)
-	{
-		// If holding a movement key and ADS, we want to force walk
-		if (shouldWalk)
-		{
-			m_IsForcedWalking = true;
-			GetUApi().GetInputByName("UAWalkRunTemp").ForceEnable(true);
-		}
-		else if (m_IsForcedWalking && !IsInventoryMenuOpen())
-		{
-			m_IsForcedWalking = false;
-			GetUApi().GetInputByName("UAWalkRunTemp").ForceEnable(false);
-		}
-	}
-
-	override bool ModCommandHandlerAfter(float pDt, int pCurrentCommandID, bool pCurrentCommandFinished)
-	{
-		// Check if should force walking
-		// This is for when player is: ADS, leaning
-
-		//bool should_walk = IsADS() || m_MovementState.IsLeaning();
-		bool should_walk = IsADS();
-		
-		ForceWalkMask(should_walk);
-
-		//ApplyMovementInertia(pDt);
-
-		return super.ModCommandHandlerAfter(pDt, pCurrentCommandID, pCurrentCommandFinished);
 	}
 
 	override bool IsTryingHoldBreath()
