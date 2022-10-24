@@ -199,8 +199,8 @@ del %modBuildDirectory%%modName%\Addons\!pboName!.pbo.%keyName%.bisign
 echo Building PBO: !pboName!.pbo
 rem echo START /w %pboProject% %pboProject% +W -F +Stop -P -O -E=dayz "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
 rem START /w %pboProject% %pboProject% +W -F +Stop -P -O -E=dayz "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
-echo START /w %pboProject% %pboProject% +W -F +Stop -P %compression% -O -E=dayz +R "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
-START /w %pboProject% %pboProject% +W -F +Stop -P %compression% -O -E=dayz +R "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
+echo START /w %pboProject% %pboProject% -F +Stop -P %compression% -O -E=dayz +R "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
+START /w %pboProject% %pboProject% -F +Stop -P %compression% -O -E=dayz +R "%workDrive%!prefixName!" "+Mod=%modBuildDirectory%%modName%" "-Key"
 
 if not errorlevel 1 (
 	set currentFolder=
@@ -213,8 +213,6 @@ if not errorlevel 1 (
 	echo Renaming PBO to %modBuildDirectory%%modName%\Addons\!pboName!.pbo
 	rename "%modBuildDirectory%%modName%\Addons\!currentFolder!.pbo" "!pboName!.pbo"
 
-
-echo %signFile% %keyDirectory%%keyName%.biprivatekey %modBuildDirectory%%modName%\Addons\!pboName!.pbo
 	%signFile% "%keyDirectory%%keyName%.biprivatekey" "%modBuildDirectory%%modName%\Addons\!pboName!.pbo"
 	goto end
 ) else (
@@ -227,6 +225,7 @@ echo %signFile% %keyDirectory%%keyName%.biprivatekey %modBuildDirectory%%modName
 
 :end
 endlocal
+
 echo "ENDED"
 if EXIST %~p2 (
 	exit
