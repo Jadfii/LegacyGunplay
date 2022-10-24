@@ -4,10 +4,10 @@ modded class DayZPlayerImplementAiming
 	float m_CurrentHandsOffsetY;
 
 	protected float m_movementTimeAcc = 0;
-	protected float m_movementAmplitudeX = 1.2;
-	protected float m_movementAmplitudeY = 0.4;
-	protected float m_movementAmplitudeZ = 0.018;
-	protected float m_movementFrequencyWalk = 1.25;
+	protected float m_movementAmplitudeX = 0.6;
+	protected float m_movementAmplitudeY = 0.25;
+	protected float m_movementAmplitudeZ = 0.012;
+	protected float m_movementFrequencyWalk = 1.3;
 	protected float m_movementFrequencySlow = 0.55;
 	protected float m_movementFrequencyCrouched = 0.85;
 
